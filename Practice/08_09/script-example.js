@@ -39,24 +39,18 @@ const frogpack = {
 const content = `
     <h1 class="backpack__name">${frogpack.name}</h1>
     <ul class="backpack__features">
-      <li class="packprop backpack__volume">Volume:<span> ${
-        frogpack.volume
-      }l</span></li>
-      <li class="packprop backpack__color">Color:<span> ${
-        frogpack.color
-      }</span></li>
-      <li class="packprop backpack__pockets">Number of pockets:<span> ${
-        frogpack.pocketNum
-      }</span></li>
-      <li class="packprop backpack__strap">Left strap length:<span> ${
-        frogpack.strapLength.left
-      } inches</span></li>
-      <li class="packprop backpack__strap">Right strap length:<span> ${
-        frogpack.strapLength.right
-      } inches</span></li>
-      <li class="feature backpack__lid">Lid status:<span> ${
-        frogpack.lidOpen ? "open" : "closed"
-      }</span></li>
+      <li class="packprop backpack__volume">Volume:<span> ${frogpack.volume
+  }l</span></li>
+      <li class="packprop backpack__color">Color:<span> ${frogpack.color
+  }</span></li>
+      <li class="packprop backpack__pockets">Number of pockets:<span> ${frogpack.pocketNum
+  }</span></li>
+      <li class="packprop backpack__strap">Left strap length:<span> ${frogpack.strapLength.left
+  } inches</span></li>
+      <li class="packprop backpack__strap">Right strap length:<span> ${frogpack.strapLength.right
+  } inches</span></li>
+      <li class="feature backpack__lid">Lid status:<span> ${frogpack.lidOpen ? "open" : "closed"
+  }</span></li>
     </ul>  
 `;
 
@@ -66,16 +60,19 @@ const content = `
  * - Creates <figure> <img> <figcaption>
  * - Returns <figure>
  */
-const addFigure = (dataObj) => {
+const addFigure = (dataObj, scr, alt, title) => {
   let newFigure = document.createElement("figure");
   let newImg = document.createElement("img");
-  newImg.setAttribute("src", dataObj.image);
-  newImg.setAttribute("alt", "");
+  newImg.setAttribute("src", scr);
+  newImg.setAttribute("alt", alt);
+  newImg.setAttribute("title", title);
   let newDesc = document.createElement("figcaption");
   newDesc.innerText = dataObj.description;
   newFigure.append(newImg, newDesc);
   return newFigure;
 };
+
+
 
 /**
  * createArticle function
@@ -84,11 +81,16 @@ const addFigure = (dataObj) => {
  * - Calls addFigure()
  * - Returns <article>
  */
-const createArticle = (frogpack) => {
+const createArticle = (packObj, scr, alt, title) => {
   let newArticle = document.createElement("article");
   newArticle.innerHTML = content;
-  newArticle.prepend(addFigure(frogpack));
+  newArticle.prepend(addFigure(packObj, scr, alt, title));
   return newArticle;
 };
 
-document.querySelector("main").append(createArticle(frogpack));
+const bigFunction = function (container, packObj, scr, alt, title) {
+  document.querySelector(container).append(createArticle(packObj, scr, alt, title));
+}
+
+bigFunction('main', frogpack, frogpack.image, 'ololo', 'Crazy Frog!');
+
