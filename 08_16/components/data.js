@@ -1,5 +1,5 @@
 // Import the Backpack class so we can make new Backpack objects.
-import Backpack from "./Backpack.js";
+// import Backpack from "./Backpack.js";
 
 // Create new Backpack object
 const everydayPack = new Backpack(
@@ -33,4 +33,4 @@ const frogPack = new Backpack(
 const backpackObjectArray = [everydayPack, frogPack];
 
 // Export the array to be used in other files
-export default backpackObjectArray;
+// export default backpackObjectArray;
