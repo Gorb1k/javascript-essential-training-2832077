@@ -3,7 +3,7 @@
  * - Add event listener to each of the strap length forms.
  * - Update strap length value with value submitted from form.
  */
-import backpackObjectArray from "./components/data.js";
+// import backpackObjectArray from "./components/data.js";
 
 /**
  * Add event listener to the lid-toggle button.
@@ -42,7 +42,6 @@ const newStrapLength = (strapArray) => {
   strapArray.forEach((listElement) => {
     // Get what side we are working with
     let side = listElement.getAttribute("data-side");
-
     // Create a new form element
     const lengthForm = document.createElement("form");
     lengthForm.classList.add(`${side}length`);
@@ -52,7 +51,16 @@ const newStrapLength = (strapArray) => {
       <input type="number" name="${side}Length" placeholder="New ${side} length">
       <button>Update</button>
     `;
+    let button = lengthForm.querySelector('button');
+    button.classList.add(`${side}-button`);
 
+    lengthForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      let formValue = lengthForm.querySelector('input');
+      let newValue = listElement.querySelector('span');
+      newValue.innerHTML = `${formValue.value} inchees`;
+      formValue.innerHTML = '';
+    })
     // Add form to the end of the list element
     listElement.append(lengthForm);
   });
@@ -69,25 +77,19 @@ const backpackList = backpackObjectArray.map((backpack) => {
     </figure>
     <h1 class="backpack__name">${backpack.name}</h1>
     <ul class="backpack__features">
-      <li class="feature backpack__volume">Volume:<span> ${
-        backpack.volume
-      }l</span></li>
-      <li class="feature backpack__color">Color:<span> ${
-        backpack.color
-      }</span></li>
+      <li class="feature backpack__volume">Volume:<span> ${backpack.volume
+    }l</span></li>
+      <li class="feature backpack__color">Color:<span> ${backpack.color
+    }</span></li>
       <li class="feature backpack__age">Age:<span> ${backpack.backpackAge()} days old</span></li>
-      <li class="feature backpack__pockets">Number of pockets:<span> ${
-        backpack.pocketNum
-      }</span></li>
-      <li class="feature backpack__strap" data-side="left">Left strap length: <span>${
-        backpack.strapLength.left
-      } inches</span></li>
-      <li class="feature backpack__strap" data-side="right">Right strap length: <span>${
-        backpack.strapLength.right
-      } inches</span></li>
-      <li class="feature backpack__lid">Lid status: <span>${
-        backpack.lidOpen ? "open" : "closed"
-      }</span></li>
+      <li class="feature backpack__pockets">Number of pockets:<span> ${backpack.pocketNum
+    }</span></li>
+      <li class="feature backpack__strap" data-side="left">Left strap length: <span>${backpack.strapLength.left
+    } inches</span></li>
+      <li class="feature backpack__strap" data-side="right">Right strap length: <span>${backpack.strapLength.right
+    } inches</span></li>
+      <li class="feature backpack__lid">Lid status: <span>${backpack.lidOpen ? "open" : "closed"
+    }</span></li>
     </ul>
     <button class="lid-toggle">Open lid</button>
   `;
